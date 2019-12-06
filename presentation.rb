@@ -30,10 +30,6 @@ class Presentation
               end
             end
           end
-
-          slide(xml) do |xml|
-            text(xml, :spacing, '')
-          end
         end
       end
     end.doc
