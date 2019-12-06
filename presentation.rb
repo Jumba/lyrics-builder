@@ -17,6 +17,10 @@ class Presentation
     body do |xml|
       @data.each do |group_name, slides|
         group(xml, group_name) do |xml|
+          slide(xml) do |xml|
+            text(xml, :spacing, '')
+          end
+
           slides.each do |slide|
             slide(xml) do |xml|
               slide.each do |block, text|
@@ -26,6 +30,10 @@ class Presentation
               end
             end
           end
+
+          slide(xml) do |xml|
+            text(xml, :spacing, '')
+          end
         end
       end
     end.doc
@@ -34,9 +42,8 @@ class Presentation
   private
 
   def position(block, text)
-    chars = text.length
-    main_width = (chars * MAIN_WIDTH_MODIFIER).ceil
-    trans_width = (chars * TRANS_WIDTH_MODIFIER).ceil
+    main_width = width(text, MAIN_WIDTH_MODIFIER)
+    trans_width = width(text, TRANS_WIDTH_MODIFIER)
 
     if block == :line_1
       "{#{((1280 - main_width) / 2).ceil} #{LINE_1_TOP} 0 #{main_width} #{MAIN_HEIGHT}}"
@@ -45,6 +52,14 @@ class Presentation
     elsif block == :translation
       "{#{((1280 - trans_width) / 2).ceil} #{TRANSLATION_TOP} 0 #{trans_width} #{TRANS_HEIGHT}}"
     end
+  end
+
+  def width(text, modifier)
+    relative_chars = text.to_s.chars.map do |char|
+      LetterWeight.weight_for(char)
+    end.sum
+
+    (relative_chars * modifier).ceil
   end
 
   def fillColor(block)
