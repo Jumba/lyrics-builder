@@ -12,6 +12,5 @@ parser = Parser.new(ARGV.first)
 
 presentation = Presentation.new(parser.output)
 
-puts presentation.generate
-
+File.open(ARGV.first.sub('csv', 'pro6'), 'w') { |file| file.write(presentation.generate) }
 

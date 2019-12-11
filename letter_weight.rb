@@ -45,4 +45,16 @@ class LetterWeight
       1
     end
   end
+
+  def self.font_path
+    File.join(Dir.pwd, 'gotham_bold.otf')
+  end
+
+  def self.width(string, size)
+    result = `convert xc: -font #{font_path} -pointsize #{size} -debug annotate -annotate 0 "#{string}" null: 2>&1`
+
+    if result =~ /width: (\d+);/
+      $1
+    end
+  end
 end

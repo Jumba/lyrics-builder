@@ -5,6 +5,9 @@ class Presentation
   MAIN_HEIGHT = 60
   TRANS_HEIGHT = 45
 
+  MAIN_FONT_SIZE = 48
+  TRANS_FONT_SIZE = 29.3333333333333
+
   LINE_1_TOP = 510
   LINE_2_TOP = 570
   TRANSLATION_TOP = 630
@@ -38,8 +41,12 @@ class Presentation
   private
 
   def position(block, text)
-    main_width = width(text, MAIN_WIDTH_MODIFIER)
-    trans_width = width(text, TRANS_WIDTH_MODIFIER)
+    main_width = width(text, MAIN_FONT_SIZE) * 1.05
+    trans_width = width(text, TRANS_FONT_SIZE) * 1.05
+
+    if main_width < 220
+      main_width += 5
+    end
 
     if block == :line_1
       "{#{((1280 - main_width) / 2).ceil} #{LINE_1_TOP} 0 #{main_width} #{MAIN_HEIGHT}}"
@@ -50,12 +57,8 @@ class Presentation
     end
   end
 
-  def width(text, modifier)
-    relative_chars = text.to_s.chars.map do |char|
-      LetterWeight.weight_for(char)
-    end.sum
-
-    (relative_chars * modifier).ceil
+  def width(text, size)
+    LetterWeight.width(text.to_s, size).to_f
   end
 
   def fillColor(block)
@@ -76,9 +79,9 @@ class Presentation
 
   def WinFlowData(block, text)
     if block == :translation
-      ['<FlowDocument TextAlignment="Left" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><Paragraph Margin="0,0,0,0" TextAlignment="Center" FontFamily="Gotham" FontSize="29.3333333333333"><Span FontWeight="Bold" Foreground="#FF000000" xml:lang="en-us"><Run Block.TextAlignment="Center">', text, "</Run></Span></Paragraph></FlowDocument>"].join
+      ['<FlowDocument TextAlignment="Left" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><Paragraph Margin="0,0,0,0" TextAlignment="Center" FontFamily="Gotham" FontSize="', TRANS_FONT_SIZE, '"><Span FontWeight="Bold" Foreground="#FF000000" xml:lang="en-us"><Run Block.TextAlignment="Center">', text, "</Run></Span></Paragraph></FlowDocument>"].join
     else
-      ['<FlowDocument TextAlignment="Left" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><Paragraph Margin="0,0,0,0" TextAlignment="Center" FontFamily="Gotham" FontSize="48"><Span FontWeight="Bold" Foreground="#FFFFFFFF" xml:lang="en-us"><Run Block.TextAlignment="Center">', text, "</Run></Span></Paragraph></FlowDocument>"].join
+      ['<FlowDocument TextAlignment="Left" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><Paragraph Margin="0,0,0,0" TextAlignment="Center" FontFamily="Gotham" FontSize="', MAIN_FONT_SIZE, '"><Span FontWeight="Bold" Foreground="#FFFFFFFF" xml:lang="en-us"><Run Block.TextAlignment="Center">', text, "</Run></Span></Paragraph></FlowDocument>"].join
     end
   end
 
