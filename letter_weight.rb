@@ -47,7 +47,7 @@ class LetterWeight
   end
 
   def self.font_path
-    File.join(Dir.pwd, 'gotham_bold.otf')
+    File.join(Dir.pwd, 'ArialMT.otf')
   end
 
   def self.width(string, size)
