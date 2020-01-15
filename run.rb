@@ -3,6 +3,7 @@ require "pp"
 require "securerandom"
 require "base64"
 require 'pry'
+require 'active_support/all'
 
 require_relative 'presentation'
 require_relative 'parser'
