@@ -44,10 +44,6 @@ class Presentation
     main_width = width(text, MAIN_FONT_SIZE) + 30
     trans_width = width(text, TRANS_FONT_SIZE) + 30
 
-    if main_width < 220
-      main_width += 5
-    end
-
     if block == :line_1
       "{#{((1280 - main_width) / 2).ceil} #{LINE_1_TOP} 0 #{main_width} #{MAIN_HEIGHT}}"
     elsif block == :line_2

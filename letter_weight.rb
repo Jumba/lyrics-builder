@@ -53,8 +53,8 @@ class LetterWeight
   def self.width(string, size)
     result = `convert xc: -font #{font_path} -pointsize #{size} -debug annotate -annotate 0 "#{string}" null: 2>&1`
 
-    if result =~ /width: (\d+);/
-      $1
+    if result =~ /width: ([\d\.]+);/
+      $1.to_f
     end
   end
 end
