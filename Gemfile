@@ -3,4 +3,5 @@ source 'https://rubygems.org' do
   gem 'pry'
   gem 'mini_magick'
   gem 'activesupport'
+  gem 'roo'
 end
