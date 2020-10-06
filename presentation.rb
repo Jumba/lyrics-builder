@@ -13,20 +13,20 @@ class Presentation
   TRANSLATION_TOP = 630
 
   def initialize(data)
-    @data = data
+    @data = data.chunk_while { |before, after| before.group == after.group }    
   end
 
-  def generate
-    body do |xml|
-      @data.each do |group_name, slides|
-        group(xml, group_name) do |xml|
+  def generate    
+    body do |xml|      
+      @data.each do |group|
+        group(xml, group.first.group.name) do |xml|
           slide(xml) do |xml|
             text(xml, :spacing, '')
           end
 
-          slides.each do |slide|
+          group.each do |slide|
             slide(xml) do |xml|
-              slide.each do |block, text|
+              slide.data.each do |block, text|
                 if text != ''
                   text(xml, block, text.to_s)
                 end

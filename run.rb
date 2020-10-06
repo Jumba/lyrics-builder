@@ -12,6 +12,8 @@ require_relative 'parser'
 require_relative 'letter_weight'
 require_relative 'loader'
 require_relative 'export'
+require_relative 'lyric/group'
+require_relative 'lyric/block'
 
 filename = ARGV.first
 

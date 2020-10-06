@@ -12,10 +12,18 @@ class Parser
   def process
     xlsx = Roo::Spreadsheet.open(File.join(Dir.pwd, @filename))
 
-    data = xlsx.sheet(xlsx.sheets.first).parse
+    data = xlsx.sheet(xlsx.sheets.first).parse    
 
-    data.inject({}) do |hash, row|
-      hash[row[0]] ||= []
+    slides = []
+    groups = {}
+
+    data.each do |row|
+      group = Lyric::Group.new(row[0])
+
+      groups[group.name] ||= group
+
+      # Get the true group
+      group = groups[group.name]
 
       translation_1 = row[3].to_s.upcase.strip.presence
       translation_2 = row[4].to_s.upcase.strip.presence
@@ -31,10 +39,10 @@ class Parser
         line[:line_1]= ''
       end
 
-      hash[row[0]] << line
-
-      hash
+      slides << Lyric::Block.new(group, line[:line_1], line[:line_2], line[:translation])
     end
+
+    slides 
   end
 
   def to_s
