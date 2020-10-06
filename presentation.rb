@@ -91,7 +91,7 @@ class Presentation
 
   def slide(xml)
     xml.RVDisplaySlide(
-      backgroundColor: "0 0 0,568627450980392 1",
+      backgroundColor: "0 0 1 1",
       highlightColor: "1 1 1 0",
       drawingBackgroundColor: true,
       enabled: true,
