@@ -1,19 +1,4 @@
-require "nokogiri"
-require "pp"
-require "securerandom"
-require "base64"
-require 'pry'
-require 'active_support/all'
-require 'roo'
-require 'caxlsx'
-
-require_relative 'presentation'
-require_relative 'parser'
-require_relative 'letter_weight'
-require_relative 'loader'
-require_relative 'export'
-require_relative 'lyric/group'
-require_relative 'lyric/block'
+require_relative 'load'
 
 filename = ARGV.first
 
@@ -28,5 +13,5 @@ else
 
   presentation = Presentation.new(parser.output)
 
-  File.open(filename.sub('xlsx', 'pro6').sub('input', 'output'), 'w') { |file| file.write(presentation.generate) }
+  puts presentation.generate
 end

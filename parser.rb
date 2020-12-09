@@ -1,8 +1,8 @@
 require 'csv'
 
 class Parser
-  def initialize(filename)
-    @filename = filename
+  def initialize(file)
+    @file = file
   end
 
   def output
@@ -10,7 +10,7 @@ class Parser
   end
 
   def process
-    xlsx = Roo::Spreadsheet.open(File.join(Dir.pwd, @filename))
+    xlsx = Roo::Spreadsheet.open(@file.path)
 
     data = xlsx.sheet(xlsx.sheets.first).parse    
 
@@ -43,9 +43,5 @@ class Parser
     end
 
     slides 
-  end
-
-  def to_s
-    "Parser for #{@filename}"
-  end
+  end  
 end

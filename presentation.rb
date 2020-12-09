@@ -43,13 +43,15 @@ class Presentation
   def position(block, text)
     main_width = width(text, MAIN_FONT_SIZE) + 30
     trans_width = width(text, TRANS_FONT_SIZE) + 30
-
+    
     if block == :line_1
-      "{#{((1280 - main_width) / 2).ceil} #{LINE_1_TOP} 0 #{main_width} #{MAIN_HEIGHT}}"
+      "{#{((1280 - main_width) / 2).ceil.to_i} #{LINE_1_TOP.to_i} 0 #{main_width.to_i} #{MAIN_HEIGHT.to_i}}"
     elsif block == :line_2
-      "{#{((1280 - main_width) / 2).ceil} #{LINE_2_TOP} 0 #{main_width} #{MAIN_HEIGHT}}"
+      "{#{((1280 - main_width) / 2).ceil.to_i} #{LINE_2_TOP.to_i} 0 #{main_width.to_i} #{MAIN_HEIGHT.to_i}}"
     elsif block == :translation
-      "{#{((1280 - trans_width) / 2).ceil} #{TRANSLATION_TOP} 0 #{trans_width} #{TRANS_HEIGHT}}"
+      "{#{((1280 - trans_width) / 2).ceil.to_i} #{TRANSLATION_TOP.to_i} 0 #{trans_width.to_i} #{TRANS_HEIGHT.to_i}}"
+    elsif block == :spacing 
+      "{0 0 0 0 0}"
     end
   end
 
@@ -67,17 +69,17 @@ class Presentation
 
   def RTFData(block, text)
     if block == :translation
-      ['{\rtf1\prortf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Georgia;}{\f3\fcharset0 Gotham;}}{\colortbl;\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\slleading0\plain\ltrpar\itap0{\lang1033\fs59\f3\cf1 \cf1\ql{\f3 {\b\ltrch ', text, '}\li0\sa0\sb0\fi0\qc\par}}}'].join
+      ['{\rtf1\prortf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Arial;}}{\colortbl;\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\slleading0\plain\ltrpar\itap0{\lang1033\fs59\f3\cf1 \cf1\ql{\f3 {\b\ltrch ', text, '}\li0\sa0\sb0\fi0\qc\par}}}'].join
     else
-      ['{\rtf1\prortf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Times New Roman;}{\f2\fcharset0 Georgia;}{\f3\fcharset0 Gotham;}}{\colortbl;\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\slleading0\plain\ltrpar\itap0{\lang1033\fs96\outl0\strokewidth-200\strokec1\f3\cf1 \cf1\ql{\f3 {\b\cf2\ltrch ', text, '}\li0\sa0\sb0\fi0\qc\par}}}'].join
+      ['{\rtf1\prortf1\ansi\ansicpg1252\uc1\htmautsp\deff2{\fonttbl{\f0\fcharset0 Arial;}}{\colortbl;\red0\green0\blue0;\red255\green255\blue255;}\loch\hich\dbch\pard\slleading0\plain\ltrpar\itap0{\lang1033\fs96\outl0\strokewidth-200\strokec1\f3\cf1 \cf1\ql{\f3 {\b\cf2\ltrch ', text, '}\li0\sa0\sb0\fi0\qc\par}}}'].join
     end
   end
 
   def WinFlowData(block, text)
     if block == :translation
-      ['<FlowDocument TextAlignment="Left" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><Paragraph Margin="0,0,0,0" TextAlignment="Center" FontFamily="Gotham" FontSize="', TRANS_FONT_SIZE, '"><Span FontWeight="Bold" Foreground="#FF000000" xml:lang="en-us"><Run Block.TextAlignment="Center">', text, "</Run></Span></Paragraph></FlowDocument>"].join
+      ['<FlowDocument TextAlignment="Left" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><Paragraph Margin="0,0,0,0" TextAlignment="Center" FontFamily="Arial" FontSize="', TRANS_FONT_SIZE, '"><Span FontWeight="Bold" Foreground="#FF000000" xml:lang="en-us"><Run Block.TextAlignment="Center">', text, "</Run></Span></Paragraph></FlowDocument>"].join
     else
-      ['<FlowDocument TextAlignment="Left" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><Paragraph Margin="0,0,0,0" TextAlignment="Center" FontFamily="Gotham" FontSize="', MAIN_FONT_SIZE, '"><Span FontWeight="Bold" Foreground="#FFFFFFFF" xml:lang="en-us"><Run Block.TextAlignment="Center">', text, "</Run></Span></Paragraph></FlowDocument>"].join
+      ['<FlowDocument TextAlignment="Left" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"><Paragraph Margin="0,0,0,0" TextAlignment="Center" FontFamily="Arial" FontSize="', MAIN_FONT_SIZE, '"><Span FontWeight="Bold" Foreground="#FFFFFFFF" xml:lang="en-us"><Run Block.TextAlignment="Center">', text, "</Run></Span></Paragraph></FlowDocument>"].join
     end
   end
 
@@ -174,7 +176,7 @@ class Presentation
         docType: 0,
         versionNumber: 600,
         usedCount: 0,
-        background: "0 0 0 1",
+        backgroundColor: "0 0 0 0",
         drawingBackgroundColor: true,
         CCLIDisplay: false,
         lastDateUsed: "2019-06-09T10:15:52+00:00",
