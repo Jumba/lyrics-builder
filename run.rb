@@ -13,5 +13,5 @@ else
 
   presentation = Presentation.new(parser.output)
 
-  puts presentation.generate
+  File.open(filename.sub('xlsx', 'pro6').sub('csv', 'pro6').sub('input', 'output'), 'w') { |file| file.write(presentation.generate) }
 end
