@@ -12,8 +12,9 @@ class Presentation
   LINE_2_TOP = 570
   TRANSLATION_TOP = 630
 
-  def initialize(data)
+  def initialize(data, options = {})
     @data = data.chunk_while { |before, after| before.group == after.group }    
+    @options = options
   end
 
   def generate    
