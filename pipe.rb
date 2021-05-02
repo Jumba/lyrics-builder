@@ -10,8 +10,6 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-puts options
-
 file = Tempfile.new(['file', '.xlsx'])
 
 file.write($stdin.read)

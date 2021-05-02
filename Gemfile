@@ -5,4 +5,5 @@ source "https://rubygems.org" do
   gem "activesupport"
   gem "roo"
   gem "caxlsx"
+  gem "sinatra"
 end

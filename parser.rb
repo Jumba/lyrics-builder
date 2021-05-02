@@ -10,7 +10,7 @@ class Parser
   end
 
   def process
-    xlsx = Roo::Spreadsheet.open(@file.path)
+    xlsx = Roo::Spreadsheet.open(@file.path, extension: 'xlsx')
 
     data = xlsx.sheet(xlsx.sheets.first).parse    
 
